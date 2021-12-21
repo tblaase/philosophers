@@ -6,7 +6,7 @@
 #    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/21 11:22:27 by tblaase           #+#    #+#              #
-#    Updated: 2021/12/21 12:20:30 by tblaase          ###   ########.fr        #
+#    Updated: 2021/12/21 15:04:04 by tblaase          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC_PATH = ./src/
 
 # SOURCES
 SRC = $(SRC_PATH)main.c \
+						$(SRC_PATH)utils_one.c
 
 # OBJECTS
 OBJ = $(SRC:.c=.o)

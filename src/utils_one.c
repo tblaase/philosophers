@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 13:58:34 by tblaase           #+#    #+#             */
-/*   Updated: 2021/12/21 15:04:50 by tblaase          ###   ########.fr       */
+/*   Updated: 2021/12/27 16:20:52 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	*ft_calloc(size_t nelem, size_t elsize)
  * @param  *input: the static input struct
  * @retval pointer to input or NULL if sth wrong
  */
-t_input	*check_input(t_input *input)
+static t_input	*check_input(t_input *input)
 {
 	if (input->n_philos <= 0 || input->n_philos > INT_MAX \
 		|| input->tt_die <= 0 || input->tt_die > INT_MAX \

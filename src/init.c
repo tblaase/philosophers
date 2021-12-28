@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 16:02:48 by tblaase           #+#    #+#             */
-/*   Updated: 2021/12/28 16:39:50 by tblaase          ###   ########.fr       */
+/*   Updated: 2021/12/28 18:02:18 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,12 @@ t_philo	**init_philos(t_input *input)
 		while (i < input->n_philos)
 		{
 			philos[i] = ft_calloc(1, sizeof(philos[i]));
-			philos[i]->fork_r = input->forks[i];
 			if (philos[i] == NULL)
-				return (NULL); // add ft_free_philos with exit_status here
+			{
+				free_philos(&philos);
+				return (NULL);
+			}
+			philos[i]->fork_r = input->forks[i];
 			philos[i]->philo_n = i + 1;
 			if (i == 0)
 				philos[i]->fork_l = input->forks[input->n_philos - 1];

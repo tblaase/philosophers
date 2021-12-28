@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 16:05:06 by tblaase           #+#    #+#             */
-/*   Updated: 2021/12/28 16:41:48 by tblaase          ###   ########.fr       */
+/*   Updated: 2021/12/28 18:01:57 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	destroy_forks(void)
 	return (EXIT_SUCCESS);
 }
 
-void	free_philos(t_philo **philos)
+void	free_philos(t_philo ***philos)
 {
 	t_input	*input;
 	int		i;
@@ -40,11 +40,11 @@ void	free_philos(t_philo **philos)
 	input = get_input();
 	while (i < input->n_philos)
 	{
-		free(philos[i]);
-		philos[i++] = NULL;
+		free(*philos[i]);
+		*philos[i++] = NULL;
 	}
-	free(philos);
-	philos = NULL;
+	free(*philos);
+	*philos = NULL;
 }
 
 int	destroy_philo(t_philo *philo) // maybe not needed

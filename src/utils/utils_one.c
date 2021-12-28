@@ -6,11 +6,11 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 13:58:34 by tblaase           #+#    #+#             */
-/*   Updated: 2021/12/27 16:20:52 by tblaase          ###   ########.fr       */
+/*   Updated: 2021/12/28 17:00:01 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inlcudes/philo.h"
+#include "../../inlcudes/philo.h"
 
 /**
  * @brief  recreation of systems atol function
@@ -69,63 +69,36 @@ void	*ft_calloc(size_t nelem, size_t elsize)
 }
 
 /**
- * @brief  checks if input is valid
- * @note   prints error message explaining what is allowed when sth wrong
- * 		   will free input if something went wrong
- * @param  *input: the static input struct
- * @retval pointer to input or NULL if sth wrong
+ * @brief  gets the time in ms
+ * @note   uses gettimeofday
+ * @retval timeofday in ms
  */
-static t_input	*check_input(t_input *input)
+long	get_time(void)
 {
-	if (input->n_philos <= 0 || input->n_philos > INT_MAX \
-		|| input->tt_die <= 0 || input->tt_die > INT_MAX \
-		|| input->tt_eat < 0 || input->tt_eat > INT_MAX \
-		|| input->tt_sleep < 0 || input->tt_sleep > INT_MAX \
-		|| (input->n_must_eat[0] == true && (input->n_must_eat[1] <= 0 \
-		|| input->n_must_eat[1] > INT_MAX)))
-	{
-		printf("all numbers have to be positive integers\
-		\nnumber_of_philos and time_to_die and n_must_eat can't be 0\n");
-		free(input);
-		return (NULL);
-	}
-	return (input);
+	long			time_ms;
+	struct timeval	te;
+
+	gettimeofday(&te, NULL);
+	time_ms = (te.tv_sec * 1000);
+	time_ms += (te.tv_usec / 1000);
+	return (time_ms);
 }
 
 /**
- * @brief  sets the input struct from reading argv
- * @note   the *input is a static and can be accessed by get_input
- * @param  **argv: the argv from main
- * @retval pointer to the input struct or NULL if allocation failed
+ * @brief  will print the state of a philosopher
+ * @note   this is mutex protected so only one message gets printed at a time
+ * @param  *input: the input struct
+ * @param  *philo: the philosopher who's state should be printed
+ * @param  state: the state that should be printed
+ * @param  time: the timestamp
+ * @retval None
  */
-t_input	*set_input(char **argv)
+void	print_state(t_input *input, t_philo *philo, int state, long time)
 {
-	static t_input	*input;
-
-	if (argv == NULL)
-		return (input);
-	input = ft_calloc(1, sizeof(input));
-	input->n_philos = ft_atol(argv[1]);
-	input->tt_die = ft_atol(argv[2]);
-	input->tt_eat = ft_atol(argv[3]);
-	input->tt_sleep = ft_atol(argv[4]);
-	if (argv[5])
+	if (input->death == false)
 	{
-		input->n_must_eat[0] = true;
-		input->n_must_eat[1] = ft_atol(argv[5]);
+		pthread_mutex_lock(&input->print_lock);
+		printf("%ld	%d %s", time, philo->philo_n, input->state[state]);
+		pthread_mutex_unlock(&input->print_lock);
 	}
-	else
-		input->n_must_eat[0] = false;
-	input = check_input(input);
-	return (input);
-}
-
-/**
- * @brief  can access the static of set_input
- * @note
- * @retval pointer stored in the static of set_input
- */
-t_input	*get_input(void)
-{
-	return (set_input(NULL));
 }

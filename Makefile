@@ -6,13 +6,13 @@
 #    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/21 11:22:27 by tblaase           #+#    #+#              #
-#    Updated: 2021/12/21 15:04:04 by tblaase          ###   ########.fr        #
+#    Updated: 2021/12/28 17:57:50 by tblaase          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # FLAGS
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread
 
 # COLORS
 Y = "\033[33m"
@@ -31,21 +31,22 @@ SRC_PATH = ./src/
 
 # SOURCES
 SRC = $(SRC_PATH)main.c \
-						$(SRC_PATH)utils_one.c
+						$(SRC_PATH)exit.c $(SRC_PATH)init.c $(SRC_PATH)input.c $(SRC_PATH)routine.c $(SRC_PATH)threads.c \
+						$(SRC_PATH)utils/utils_one.c
 
 # OBJECTS
 OBJ = $(SRC:.c=.o)
 
 # RULES
 all: $(NAME)
-	@printf "\n"
-	@echo $(G)"       _     _     _       _ _ "$(X)
-	@echo $(G)" _____|_|___|_|___| |_ ___| | |"$(X)
-	@echo $(G)"|     | |   | |_ -|   | -_| | |"$(X)
-	@echo $(G)"|_|_|_|_|_|_|_|___|_|_|___|_|_|"$(X)
+	@echo $(G)"        __     __ __                           __                     "$(X)
+	@echo $(G)".-----.|  |--.|__|  |.-----.-----.-----.-----.|  |--.-----.----.-----."$(X)
+	@echo $(G)"|  _  ||     ||  |  ||  _  |__ --|  _  |  _  ||     |  -__|   _|__ --|"$(X)
+	@echo $(G)"|   __||__|__||__|__||_____|_____|_____|   __||__|__|_____|__| |_____|"$(X)
+	@echo $(G)"|__|                                   |__|                           "$(X)
 	@printf "\n\n"
 
-$(SRC_PATH)%.o :$(SRC_PATH)%.c
+%.o :$(SRC_PATH)%.c
 	@echo $(Y)Compiling [$@]...$(X)
 	@$(CC) $(CFLAGS) -c -o $@ $<
 	@printf $(UP)$(CUT)
@@ -64,6 +65,8 @@ clean:
 			rm -f $(OBJ); \
 			echo $(R)Cleaning" "[$(OBJ)]...$(X); \
 	fi;
+# is needed because the above if statement doesn't work
+	rm -f $(OBJ)
 
 fclean: clean
 	@if [ -f "$(NAME)" ]; then \

@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:12:08 by tblaase           #+#    #+#             */
-/*   Updated: 2021/12/27 16:19:23 by tblaase          ###   ########.fr       */
+/*   Updated: 2021/12/28 16:57:58 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <pthread.h>
 # include <limits.h>
 # include <stdbool.h>
+# include <unistd.h>
 
 // DEFINES
 
@@ -32,6 +33,8 @@ typedef struct s_input
 	long long		n_must_eat[2];
 	bool			death;
 	pthread_mutex_t	**forks;
+	pthread_mutex_t	print_lock;
+	char			*state[6];
 }			t_input;
 
 // INFORMATION OF EACH PHILOSOPHER
@@ -40,14 +43,45 @@ typedef struct s_philo
 	int				philo_n;
 	pthread_mutex_t	*fork_r;
 	pthread_mutex_t	*fork_l;
+	pthread_t		thread_id;
 }			t_philo;
+
+// ENUM FOR PRINT STATEMENTS
+typedef enum e_print_statement
+{
+	is_eating = 0,
+	grabbed_fork = 1,
+	is_sleeping = 2,
+	is_thinking = 3,
+	is_dead = 4,
+}	t_print_statement;
 
 // UTILS_ONE
 long long	ft_atol(char *str);
 void		*ft_calloc(size_t nelem, size_t elsize);
+long		get_time(void);
+void		print_state(t_input *input, t_philo *philo, int state, long time);
+
+// UTILS_TWO
+
+// EXIT
+int			destroy_forks(void);
+void		free_philos(t_philo **philos);
+int			destroy_philo(t_philo *philo); // maybe not needed
+int			death_routine(t_philo *philo);
+
+// INIT
+t_philo		**init_philos(t_input *input);
+
+// INPUT
 t_input		*set_input(char **argv);
 t_input		*get_input(void);
 
-// UTILS_TWO
-long		get_time(void);
+// ROUTINE
+void		*routine(void *arg);
+
+// THREADS
+int			thread_creation(t_input *input, t_philo **philos);
+int			thread_join(t_philo **philos);
+
 #endif

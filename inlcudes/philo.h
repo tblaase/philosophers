@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:12:08 by tblaase           #+#    #+#             */
-/*   Updated: 2021/12/28 16:57:58 by tblaase          ###   ########.fr       */
+/*   Updated: 2021/12/28 18:03:17 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void		print_state(t_input *input, t_philo *philo, int state, long time);
 
 // EXIT
 int			destroy_forks(void);
-void		free_philos(t_philo **philos);
+void		free_philos(t_philo ***philos);
 int			destroy_philo(t_philo *philo); // maybe not needed
 int			death_routine(t_philo *philo);
 

@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:12:08 by tblaase           #+#    #+#             */
-/*   Updated: 2021/12/28 18:03:17 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/02 19:41:48 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_input
 	bool			death;
 	pthread_mutex_t	**forks;
 	pthread_mutex_t	print_lock;
-	char			*state[6];
+	char			*state[7];
 }			t_input;
 
 // INFORMATION OF EACH PHILOSOPHER

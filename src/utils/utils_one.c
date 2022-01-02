@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 13:58:34 by tblaase           #+#    #+#             */
-/*   Updated: 2021/12/28 17:00:01 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/02 19:35:31 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,20 @@ long long	ft_atol(char *str)
 	return (x * c);
 }
 
+void	*ft_memset(void *s, int c, size_t n)
+{
+	char	*buf;
+
+	buf = s;
+	while (n > 0)
+	{
+		*buf = c;
+		buf++;
+		n--;
+	}
+	return (s);
+}
+
 /**
  * @brief  recreation of the systems calloc
  * @note
@@ -53,19 +67,12 @@ long long	ft_atol(char *str)
  */
 void	*ft_calloc(size_t nelem, size_t elsize)
 {
-	char			*ptr;
-	unsigned int	i;
+	void	*ptr;
 
-	i = 0;
-	ptr = (char *)malloc(nelem * elsize);
+	ptr = malloc(nelem * elsize);
 	if (!ptr)
 		return (NULL);
-	while (i < nelem * elsize)
-	{
-		ptr[i] = 0;
-		i++;
-	}
-	return (ptr);
+	return (ft_memset(ptr, 0, nelem * elsize));
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 16:26:02 by tblaase           #+#    #+#             */
-/*   Updated: 2021/12/28 16:26:41 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/02 19:40:57 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_input	*set_input(char **argv)
 
 	if (argv == NULL)
 		return (input);
-	input = ft_calloc(1, sizeof(input));
+	input = ft_calloc(1, sizeof(t_input));
 	input->n_philos = ft_atol(argv[1]);
 	input->tt_die = ft_atol(argv[2]);
 	input->tt_eat = ft_atol(argv[3]);

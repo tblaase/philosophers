@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 15:59:25 by tblaase           #+#    #+#             */
-/*   Updated: 2021/12/28 16:57:47 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/02 20:13:36 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	input = get_input();
 	start_time = get_time();
-	while ((input->n_must_eat[0] == true && eat < input->n_must_eat[1]) || eat < INT_MAX)
+	while ((input->n_must_eat[0] == true && eat < input->n_must_eat[1])
+		|| eat < INT_MAX)
 	{
 		pthread_mutex_lock(philo->fork_l);
 		print_state(input, philo, grabbed_fork, get_time());

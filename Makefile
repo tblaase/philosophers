@@ -6,13 +6,13 @@
 #    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/21 11:22:27 by tblaase           #+#    #+#              #
-#    Updated: 2021/12/28 17:57:50 by tblaase          ###   ########.fr        #
+#    Updated: 2022/01/02 16:42:25 by tblaase          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # FLAGS
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror -pthread -g
 
 # COLORS
 Y = "\033[33m"

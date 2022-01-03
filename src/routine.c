@@ -54,5 +54,6 @@ void	*routine(void *arg)
 			print_state(input, philo, is_thinking, get_time());
 		}
 	}
-	return (EXIT_SUCCESS);
+	philo->running = false;
+	return (NULL);
 }

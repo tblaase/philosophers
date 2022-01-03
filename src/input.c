@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 16:26:02 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/02 19:40:57 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/03 16:37:50 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_input	*set_input(char **argv)
 	input->state[is_thinking] = "is thinking\n";
 	input->state[is_dead] = "died\n";
 	input->state[6] = NULL;
+	input->i_p = 0;
 	return (input);
 }
 

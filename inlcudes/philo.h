@@ -26,13 +26,15 @@
 // INFORMATION FROM INPUT
 typedef struct s_input
 {
+	int				i_p;
 	long long		n_philos;
 	long long		tt_die;
 	long long		tt_eat;
 	long long		tt_sleep;
 	long long		n_must_eat[2];
 	bool			death;
-	pthread_mutex_t	**forks;
+	bool			wait;
+	// pthread_mutex_t	**forks;
 	pthread_mutex_t	print_lock;
 	char			*state[7];
 }			t_input;
@@ -41,6 +43,7 @@ typedef struct s_input
 typedef struct s_philo
 {
 	int				philo_n;
+	bool			running;
 	pthread_mutex_t	*fork_r;
 	pthread_mutex_t	*fork_l;
 	pthread_t		thread_id;

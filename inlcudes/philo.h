@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:12:08 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/02 19:41:48 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/03 21:00:44 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_input
 	long long		tt_eat;
 	long long		tt_sleep;
 	long long		n_must_eat[2];
+	long			start_time;
 	bool			death;
 	bool			wait;
 	// pthread_mutex_t	**forks;
@@ -47,6 +48,7 @@ typedef struct s_philo
 	pthread_mutex_t	*fork_r;
 	pthread_mutex_t	*fork_l;
 	pthread_t		thread_id;
+	long			time_philo;
 }			t_philo;
 
 // ENUM FOR PRINT STATEMENTS

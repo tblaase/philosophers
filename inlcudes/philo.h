@@ -67,12 +67,13 @@ int			ft_sleep(long long ms);
 
 // EXIT
 int			destroy_forks(void);
-void		free_philos(t_philo ***philos);
+void		free_philos(void);
 int			destroy_philo(t_philo *philo); // maybe not needed
 int			death_routine(t_philo *philo);
 
 // INIT
-t_philo		**init_philos(t_input *input);
+t_philo		**init_philos(bool init);
+t_philo		**get_philos(void);
 
 // INPUT
 t_input		*set_input(char **argv);
@@ -83,6 +84,6 @@ void		*routine(void *arg);
 
 // THREADS
 int			thread_creation(t_input *input, t_philo **philos);
-int			thread_join(t_philo **philos);
+int			thread_join(void);
 
 #endif

@@ -21,9 +21,15 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	input = get_input();
-	start_time = get_time();
-	while ((input->n_must_eat[0] == true && eat < input->n_must_eat[1])
-		|| eat < INT_MAX)
+	philo = get_philos()[input->i_p];
+	printf("setting the running bool of philo %d to true\n", philo->philo_n);
+	philo->running = true;
+	printf("%d waiting for thread creation to finish\n", philo->philo_n);
+	while (input->wait == true)
+		usleep(1);
+	// start_time = get_time();
+	while (input->n_must_eat[0] == true && eat < input->n_must_eat[1]
+		&& eat < INT_MAX - 1) // runs infinite
 	{
 		pthread_mutex_lock(philo->fork_l);
 		print_state(input, philo, grabbed_fork, get_time());

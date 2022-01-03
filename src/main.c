@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	else
 	{
-		philos = init_philos(input);
+		philos = init_philos(true);
 		if (philos == NULL || philos[0] == NULL)
 		{
 			printf("Error while creating philosophers\n");
@@ -38,9 +38,7 @@ int	main(int argc, char **argv)
 		}
 		check = thread_creation(input, philos);
 		if (check == 0)
-		{
-			thread_join(philos);
-		}
+			thread_join();
 		else
 			return (EXIT_FAILURE); //exit_routine(input, philos,exit_status) for freeing everything and exit_status is needed
 	}

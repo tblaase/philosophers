@@ -12,7 +12,7 @@
 
 #include "../inlcudes/philo.h"
 
-int	thread_join(t_philo **philos)
+int	thread_join(void)
 {
 	(void)philos;
 	return (EXIT_SUCCESS);

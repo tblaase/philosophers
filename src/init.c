@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 16:02:48 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/02 20:12:51 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/03 20:31:07 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,41 +40,50 @@ static int	init_forks(t_input *input, t_philo **philos)
 	return (EXIT_SUCCESS);
 }
 
-t_philo	**init_philos(t_input *input)
+t_philo	**init_philos(bool init)
 {
-	t_philo	**philos;
-	int		i;
+	static t_philo	**philos;
+	int				i;
+	t_input			*input;
 
+	if (init == false)
+		return (philos);
+	input = get_input();
 	// input->forks = ft_calloc(1, sizeof(pthread_mutex_t **));
 	// if (init_forks(input) == EXIT_FAILURE)
 	// 	return (NULL);
 	philos = ft_calloc(input->n_philos + 1, sizeof(t_philo *));
-	// if (philos == NULL)
-	// 	return (NULL);
+	if (philos == NULL)
+		return (NULL);
 	// else
 	// {
-		i = 0;
-		while (i < input->n_philos)
+	i = 0;
+	while (i < input->n_philos)
+	{
+		philos[i] = ft_calloc(1, sizeof(t_philo));
+		if (philos[i] == NULL)
 		{
-			philos[i] = ft_calloc(1, sizeof(t_philo));
-			if (philos[i] == NULL)
-			{
-				free_philos(&philos);
-				return (NULL);
-			}
-			// philos[i]->fork_r = input->forks[i];
-			philos[i]->philo_n = i + 1;
-			// if (i == 0)
-			// 	philos[i]->fork_l = input->forks[input->n_philos - 1];
-			// else
-			// 	philos[i]->fork_l = input->forks[i - 1];
-			i++;
-		}
-		if (init_forks(input, philos) == EXIT_FAILURE)
-		{
-			free_philos(&philos); // change it to return NULL to save some lines
+			free_philos();
 			return (NULL);
 		}
+		// philos[i]->fork_r = input->forks[i];
+		philos[i]->philo_n = i + 1;
+		// if (i == 0)
+		// 	philos[i]->fork_l = input->forks[input->n_philos - 1];
+		// else
+		// 	philos[i]->fork_l = input->forks[i - 1];
+		i++;
+	}
+	if (init_forks(input, philos) == EXIT_FAILURE)
+	{
+		free_philos(); // change it to return NULL to save some lines
+		return (NULL);
+	}
 	// }
 	return (philos);
+}
+
+t_philo **get_philos(void)
+{
+	return (init_philos(false));
 }

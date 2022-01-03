@@ -63,6 +63,7 @@ long		get_time(void);
 void		print_state(t_input *input, t_philo *philo, int state, long time);
 
 // UTILS_TWO
+int			ft_sleep(long long ms);
 
 // EXIT
 int			destroy_forks(void);

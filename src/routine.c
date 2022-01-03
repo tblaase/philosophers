@@ -35,7 +35,7 @@ void	*routine(void *arg)
 		{
 			// eat
 			print_state(input, philo, is_eating, get_time());
-			usleep(input->tt_eat);
+			ft_sleep(input->tt_eat);
 			eat++;
 			// unlock
 			pthread_mutex_unlock(philo->fork_l);
@@ -43,7 +43,7 @@ void	*routine(void *arg)
 			start_time = get_time();
 			// sleep
 			print_state(input, philo, is_sleeping, get_time());
-			usleep(input->tt_sleep);
+			ft_sleep(input->tt_sleep);
 			print_state(input, philo, is_thinking, get_time());
 		}
 	}

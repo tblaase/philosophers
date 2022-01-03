@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 16:21:26 by tblaase           #+#    #+#             */
-/*   Updated: 2021/12/28 16:58:44 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/03 21:00:26 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 
 int	thread_join(void)
 {
-	(void)philos;
+	int		i;
+	int		check;
+	t_philo	**philos;
+
+	i = 0;
+	check = 0;
+	philos = get_philos();
+	while (philos[i] != NULL && check == 0)
+		check = pthread_join(philos[i++]->thread_id, NULL);
 	return (EXIT_SUCCESS);
 }
 
@@ -36,7 +44,6 @@ int	thread_creation(t_input *input, t_philo **philos)
 			printf("Finished %d.\n", i + 1);
 		}
 		i++;
-	}
 	}
 	i = 0;
 	while (i < input->n_philos)

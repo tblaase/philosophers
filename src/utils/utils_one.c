@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 13:58:34 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/02 19:35:31 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/03 20:43:55 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ void	print_state(t_input *input, t_philo *philo, int state, long time)
 	if (input->death == false)
 	{
 		pthread_mutex_lock(&input->print_lock);
-		printf("%ld	%d %s", time, philo->philo_n, input->state[state]);
+		printf("%ld	%d %s", time - input->start_time,
+			philo->philo_n, input->state[state]);
 		pthread_mutex_unlock(&input->print_lock);
 	}
 }

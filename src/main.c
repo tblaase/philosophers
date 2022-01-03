@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:10:08 by tblaase           #+#    #+#             */
-/*   Updated: 2021/12/28 16:36:31 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/03 21:26:06 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv)
 	t_philo	**philos;
 	int		check;
 
+	input = NULL;
 	if (argc < 5 || argc > 6)
 	{
 		printf("Wrong input!\nplease use like './philo\

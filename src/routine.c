@@ -16,10 +16,11 @@ void	*routine(void *arg)
 {
 	t_input	*input;
 	t_philo	*philo;
-	long	start_time;
+	// long	start_time;
 	int		eat;
 
-	philo = (t_philo *)arg;
+	(void)arg;
+	eat = 0;
 	input = get_input();
 	philo = get_philos()[input->i_p];
 	printf("setting the running bool of philo %d to true\n", philo->philo_n);

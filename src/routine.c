@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 15:59:25 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/03 21:06:40 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/05 22:24:08 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,19 @@ void	*routine(void *arg)
 	eat = 0;
 	input = get_input();
 	philo = get_philos()[input->i_p];
-	printf("setting the running bool of philo %d to true\n", philo->philo_n);
+	// printf("setting the running bool of philo %d to true\n", philo->philo_n);
 	philo->running = true;
-	printf("%d waiting for thread creation to finish\n", philo->philo_n);
+	// printf("%d waiting for thread creation to finish\n", philo->philo_n);
 	while (input->wait == true)
-		usleep(1);
+		usleep(10);
 	// start_time = get_time();
-	while (input->n_must_eat[0] == true && eat < input->n_must_eat[1]
-		&& eat < INT_MAX - 1) // runs infinite
+	if (philo->philo_n % 2 == 0)
 	{
-		philo->time_philo = get_time();
+		printf("delaying %d\n", philo->philo_n);
+		usleep(1000);
+	}
+	// printf("%d running routine now\n", philo->philo_n);
+	philo->time_philo = get_time();
 	while ((input->n_must_eat[0] == true && eat < input->n_must_eat[1]
 		&& eat < INT_MAX - 1) || (input->n_must_eat[0] == false && eat < INT_MAX)) //test with MAX_INT
 	{
@@ -51,6 +54,7 @@ void	*routine(void *arg)
 			print_state(input, philo, is_eating, get_time());
 			ft_sleep(input->tt_eat);
 			eat++;
+			philo->time_philo = get_time();
 			// unlock
 			pthread_mutex_unlock(&input->forks[philo->fork_l]);
 			pthread_mutex_unlock(&input->forks[philo->fork_r]);
@@ -61,6 +65,7 @@ void	*routine(void *arg)
 			print_state(input, philo, is_thinking, get_time());
 		}
 	}
+	// printf("%d finished routine\n", philo->philo_n);
 	philo->running = false;
 	return (NULL);
 }

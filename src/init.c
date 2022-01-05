@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 16:02:48 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/03 20:31:07 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/05 22:31:20 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,19 @@ static int	init_forks(void)
 		{
 			printf("Error when initialising forks\n");
 			return (EXIT_FAILURE);
+		}
+		philos[i]->fork_r = i;
+		i++;
+		// printf("initialised mutex on fork_r of philo %d\n", philos[i - 1]->philo_n);
+		// printf("locking fork_r of philo %d now\n", philos[i - 1]->philo_n);
+		// pthread_mutex_lock(&fork);
+		// printf("unlocking fork_r of philo %d again\n", philos[i - 1]->philo_n);
 	}
 	philos[0]->fork_l = philos[--i]->fork_r;
+	// printf("philo %d fork_l is now fork_r of philo %d\n", philos[0]->philo_n, philos[i]->philo_n);
 	while (i > 0)
 	{
+		// printf("philo %d fork_l is now fork_r of philo %d\n", philos[i]->philo_n, philos[i - 1]->philo_n);
 		philos[i]->fork_l = philos[i - 1]->fork_r;
 		i--;
 	}

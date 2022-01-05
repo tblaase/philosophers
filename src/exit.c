@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 16:05:06 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/03 20:30:54 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/05 22:22:30 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,25 @@ void	free_philos(void)
 int	death_routine(t_philo *philo)
 {
 	t_input	*input;
-	t_philo	**philos;
-	int		i;
+	// t_philo	**philos;
+	// int		i;
 
-	i = 0;
+	// i = 0;
 	input = get_input();
-	philos = get_philos();
+	// philos = get_philos();
 	input->death = true;
-	printf("%d %s", philo->philo_n, input->state[is_dead]);
+	if (philo != NULL)
+		printf("%ld %d %s", get_time() - input->start_time, philo->philo_n, input->state[is_dead]);
+	// printf("joining threads now\n");
+	// while (philos[i] != NULL)
+	// 	pthread_join(philos[i++]->thread_id, NULL);
+	thread_join();
+	// printf("successfully joined threads\n");
 	if (destroy_forks() == EXIT_FAILURE)
 	{
-		while (philos[i] != NULL)
-			pthread_join(philos[i++]->thread_id, NULL);
 		free_philos();
 		return (EXIT_FAILURE);
 	}
-	while (philos[i] != NULL)
-		pthread_join(philos[i++]->thread_id, NULL);
 	free_philos();
 	return (EXIT_SUCCESS);
 }

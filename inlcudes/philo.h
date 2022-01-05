@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:12:08 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/03 21:00:44 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/05 21:07:56 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_input
 	long			start_time;
 	bool			death;
 	bool			wait;
-	// pthread_mutex_t	**forks;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
 	char			*state[7];
 }			t_input;
@@ -45,8 +45,8 @@ typedef struct s_philo
 {
 	int				philo_n;
 	bool			running;
-	pthread_mutex_t	*fork_r;
-	pthread_mutex_t	*fork_l;
+	int				fork_r;
+	int				fork_l;
 	pthread_t		thread_id;
 	long			time_philo;
 }			t_philo;

@@ -14,15 +14,15 @@
 
 int	destroy_forks(void)
 {
-	t_philo	**philos;
+	t_input	*input;
 	int		i;
 	int		check;
 
 	i = 0;
 	check = 0;
-	philos = get_philos();
-	while (philos[i] != NULL && check == 0)
-		check = pthread_mutex_destroy(philos[i]->fork_r);
+	input = get_input();
+	while (i < input->n_philos && check == 0)
+		check = pthread_mutex_destroy(&input->forks[i++]);
 	if (check != 0)
 	{
 		printf("Error when destroying forks\n");

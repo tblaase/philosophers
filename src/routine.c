@@ -33,9 +33,15 @@ void	*routine(void *arg)
 		&& eat < INT_MAX - 1) // runs infinite
 	{
 		philo->time_philo = get_time();
-		pthread_mutex_lock(philo->fork_l);
+	while ((input->n_must_eat[0] == true && eat < input->n_must_eat[1]
+		&& eat < INT_MAX - 1) || (input->n_must_eat[0] == false && eat < INT_MAX)) //test with MAX_INT
+	{
+		// printf("start_time of %d is %ld\n", philo->philo_n, philo->time_philo - input->start_time);
+		// printf("%d trying to grab fork_r now\n", philo->philo_n);
+		pthread_mutex_lock(&input->forks[philo->fork_r]);
 		print_state(input, philo, grabbed_fork, get_time());
-		pthread_mutex_lock(philo->fork_r);
+		// printf("%d trying to grab fork_l now\n", philo->philo_n);
+		pthread_mutex_lock(&input->forks[philo->fork_l]); // fork_l is probably not working
 		print_state(input, philo, grabbed_fork, get_time());
 		// if ((start_time - get_time()) >= input->tt_die)
 		// 	death_routine(philo);
@@ -46,8 +52,8 @@ void	*routine(void *arg)
 			ft_sleep(input->tt_eat);
 			eat++;
 			// unlock
-			pthread_mutex_unlock(philo->fork_l);
-			pthread_mutex_unlock(philo->fork_r);
+			pthread_mutex_unlock(&input->forks[philo->fork_l]);
+			pthread_mutex_unlock(&input->forks[philo->fork_r]);
 			// start_time = get_time();
 			// sleep
 			print_state(input, philo, is_sleeping, get_time());

@@ -12,24 +12,25 @@
 
 #include "../inlcudes/philo.h"
 
-static int	init_forks(t_input *input, t_philo **philos)
+static int	init_forks(void)
 {
 	int				i;
 	int				check;
-	pthread_mutex_t	fork;
+	// pthread_mutex_t	fork;
+	t_philo			**philos;
+	t_input			*input;
 
+	input = get_input();
+	philos = get_philos();
+	input->forks = ft_calloc(input->n_philos, sizeof(*input->forks));
 	i = 0;
-	check = 0;
-	(void)input;
-	while (philos[i] != NULL && check == 0)
+	while (philos[i] != NULL)
 	{
-		check = pthread_mutex_init(&fork, NULL);
-		philos[i++]->fork_r = &fork;
-	}
-	if (check != 0)
-	{
-		printf("Error when initialising forks\n");
-		return (EXIT_FAILURE);
+		check = pthread_mutex_init(&input->forks[i], NULL);
+		if (check != 0)
+		{
+			printf("Error when initialising forks\n");
+			return (EXIT_FAILURE);
 	}
 	philos[0]->fork_l = philos[--i]->fork_r;
 	while (i > 0)
@@ -74,7 +75,7 @@ t_philo	**init_philos(bool init)
 		// 	philos[i]->fork_l = input->forks[i - 1];
 		i++;
 	}
-	if (init_forks(input, philos) == EXIT_FAILURE)
+	if (init_forks() == EXIT_FAILURE)
 	{
 		free_philos(); // change it to return NULL to save some lines
 		return (NULL);

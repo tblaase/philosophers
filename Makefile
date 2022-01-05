@@ -6,7 +6,7 @@
 #    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/21 11:22:27 by tblaase           #+#    #+#              #
-#    Updated: 2022/01/03 20:51:42 by tblaase          ###   ########.fr        #
+#    Updated: 2022/01/05 12:46:48 by tblaase          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC_PATH = ./src/
 
 # SOURCES
 SRC = $(SRC_PATH)main.c \
-						$(SRC_PATH)exit.c $(SRC_PATH)init.c $(SRC_PATH)input.c $(SRC_PATH)routine.c $(SRC_PATH)threads.c \
+						$(SRC_PATH)exit.c $(SRC_PATH)init.c $(SRC_PATH)input.c $(SRC_PATH)routine.c $(SRC_PATH)threads.c $(SRC_PATH)reaper.c\
 						$(SRC_PATH)utils/utils_one.c $(SRC_PATH)utils/utils_two.c
 
 # OBJECTS

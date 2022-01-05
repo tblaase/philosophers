@@ -84,6 +84,9 @@ t_philo		**get_philos(void);
 t_input		*set_input(char **argv);
 t_input		*get_input(void);
 
+// REAPER
+void		reaper(void);
+
 // ROUTINE
 void		*routine(void *arg);
 

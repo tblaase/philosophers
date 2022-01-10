@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:10:08 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/05 20:52:18 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/10 19:57:29 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	main(int argc, char **argv)
 {
 	t_input	*input;
 	t_philo	**philos;
-	// int		check;
 
 	input = NULL;
 	if (argc < 5 || argc > 6)
@@ -39,10 +38,6 @@ int	main(int argc, char **argv)
 		}
 		if (thread_creation(input, philos) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		// if (check == 0)
-		// 	thread_join();
-		// else
-		// 	return (EXIT_FAILURE); //exit_routine(input, philos,exit_status) for freeing everything and exit_status is needed
 	}
 	return (EXIT_SUCCESS);
 }

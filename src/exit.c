@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 16:05:06 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/05 22:22:30 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/10 20:00:09 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int	destroy_forks(void)
 		check = pthread_mutex_destroy(&input->forks[i++]);
 	if (check != 0)
 	{
+		//
+		perror("Error");
+		//
 		printf("Error when destroying forks\n");
 		return (EXIT_FAILURE);
 	}
@@ -56,7 +59,9 @@ int	death_routine(t_philo *philo)
 	// i = 0;
 	input = get_input();
 	// philos = get_philos();
+	pthread_mutex_lock(input->death_lock);
 	input->death = true;
+	pthread_mutex_unlock(input->death_lock);
 	if (philo != NULL)
 		printf("%ld %d %s", get_time() - input->start_time, philo->philo_n, input->state[is_dead]);
 	// printf("joining threads now\n");

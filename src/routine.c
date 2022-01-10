@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 15:59:25 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/05 22:24:08 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/10 19:56:09 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	*routine(void *arg)
 {
 	t_input	*input;
 	t_philo	*philo;
-	// long	start_time;
 	int		eat;
 
 	(void)arg;
@@ -28,11 +27,10 @@ void	*routine(void *arg)
 	// printf("%d waiting for thread creation to finish\n", philo->philo_n);
 	while (input->wait == true)
 		usleep(10);
-	// start_time = get_time();
 	if (philo->philo_n % 2 == 0)
 	{
-		printf("delaying %d\n", philo->philo_n);
-		usleep(1000);
+		// printf("delaying %d\n", philo->philo_n);
+		usleep(1500);
 	}
 	// printf("%d running routine now\n", philo->philo_n);
 	philo->time_philo = get_time();
@@ -46,10 +44,10 @@ void	*routine(void *arg)
 		// printf("%d trying to grab fork_l now\n", philo->philo_n);
 		pthread_mutex_lock(&input->forks[philo->fork_l]); // fork_l is probably not working
 		print_state(input, philo, grabbed_fork, get_time());
-		// if ((start_time - get_time()) >= input->tt_die)
-		// 	death_routine(philo);
+		pthread_mutex_lock(input->death_lock);
 		if (input->death == false)
 		{
+			pthread_mutex_unlock(input->death_lock);
 			// eat
 			print_state(input, philo, is_eating, get_time());
 			ft_sleep(input->tt_eat);
@@ -64,6 +62,8 @@ void	*routine(void *arg)
 			ft_sleep(input->tt_sleep);
 			print_state(input, philo, is_thinking, get_time());
 		}
+		else
+			pthread_mutex_unlock(input->death_lock);
 	}
 	// printf("%d finished routine\n", philo->philo_n);
 	philo->running = false;

@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 16:26:02 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/05 20:47:03 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/10 19:58:11 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ t_input	*set_input(char **argv)
 	}
 	else
 		input->n_must_eat[0] = false;
-	input = check_input(input);
 	input->state[is_eating] = "is eating\n";
 	input->state[grabbed_fork] = "has taken a fork\n";
 	input->state[is_sleeping] = "is sleeping\n";
@@ -68,6 +67,11 @@ t_input	*set_input(char **argv)
 	input->state[is_dead] = "died\n";
 	input->state[6] = NULL;
 	input->i_p = 0;
+	input->print_lock = ft_calloc(1, sizeof(pthread_mutex_t));
+	input->death_lock = ft_calloc(1, sizeof(pthread_mutex_t));
+	pthread_mutex_init(input->print_lock, NULL);
+	pthread_mutex_init(input->death_lock, NULL);
+	input = check_input(input);
 	return (input);
 }
 

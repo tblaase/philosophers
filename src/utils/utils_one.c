@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 13:58:34 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/10 20:01:11 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/14 16:22:42 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,19 @@ long	get_time(void)
  * @param  time: the timestamp
  * @retval None
  */
-void	print_state(t_input *input, t_philo *philo, int state, long time)
+void	print_state(t_input *input, t_philo *philo, int state)
 {
+	pthread_mutex_lock(input->death_lock);
 	if (input->death == false)
 	{
+		pthread_mutex_unlock(input->death_lock);
 		pthread_mutex_lock(input->print_lock);
-		printf("%ld	%d %s", time - input->start_time,
+		pthread_mutex_lock(input->time_lock);
+		printf("%ld	%d %s", get_time() - input->start_time,
 			philo->philo_n, input->state[state]);
+		pthread_mutex_unlock(input->time_lock);
 		pthread_mutex_unlock(input->print_lock);
 	}
+	else
+		pthread_mutex_unlock(input->death_lock);
 }

@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 15:59:25 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/10 19:56:09 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/14 16:25:22 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,51 +21,78 @@ void	*routine(void *arg)
 	(void)arg;
 	eat = 0;
 	input = get_input();
+	pthread_mutex_lock(input->i_p_lock);
 	philo = get_philos()[input->i_p];
-	// printf("setting the running bool of philo %d to true\n", philo->philo_n);
+	pthread_mutex_unlock(input->i_p_lock);
+	pthread_mutex_lock(input->running_lock);
 	philo->running = true;
-	// printf("%d waiting for thread creation to finish\n", philo->philo_n);
+	pthread_mutex_unlock(input->running_lock);
+	pthread_mutex_lock(input->wait_lock);
 	while (input->wait == true)
-		usleep(10);
+	{
+		pthread_mutex_unlock(input->wait_lock);
+		usleep(1);
+		pthread_mutex_lock(input->wait_lock);
+	}
+	pthread_mutex_lock(philo->time_lock);
+	philo->time_philo = get_time();
+	pthread_mutex_unlock(philo->time_lock);
+	pthread_mutex_unlock(input->wait_lock);
 	if (philo->philo_n % 2 == 0)
 	{
-		// printf("delaying %d\n", philo->philo_n);
-		usleep(1500);
+		// if (input->tt_eat / 2 < 2)
+		// 	usleep(1500);
+		// else
+			ft_sleep(input->tt_eat / 2);
 	}
-	// printf("%d running routine now\n", philo->philo_n);
-	philo->time_philo = get_time();
 	while ((input->n_must_eat[0] == true && eat < input->n_must_eat[1]
 		&& eat < INT_MAX - 1) || (input->n_must_eat[0] == false && eat < INT_MAX)) //test with MAX_INT
 	{
-		// printf("start_time of %d is %ld\n", philo->philo_n, philo->time_philo - input->start_time);
-		// printf("%d trying to grab fork_r now\n", philo->philo_n);
 		pthread_mutex_lock(&input->forks[philo->fork_r]);
-		print_state(input, philo, grabbed_fork, get_time());
-		// printf("%d trying to grab fork_l now\n", philo->philo_n);
-		pthread_mutex_lock(&input->forks[philo->fork_l]); // fork_l is probably not working
-		print_state(input, philo, grabbed_fork, get_time());
+		print_state(input, philo, grabbed_fork);
+		if (input->n_philos == 1)
+		{
+			pthread_mutex_unlock(&input->forks[philo->fork_r]);
+			ft_sleep(input->tt_die + 1);
+			break ;
+		}
+		pthread_mutex_lock(&input->forks[philo->fork_l]);
+		print_state(input, philo, grabbed_fork);
 		pthread_mutex_lock(input->death_lock);
 		if (input->death == false)
 		{
 			pthread_mutex_unlock(input->death_lock);
 			// eat
-			print_state(input, philo, is_eating, get_time());
-			ft_sleep(input->tt_eat);
-			eat++;
+			print_state(input, philo, is_eating);
+			pthread_mutex_lock(philo->eat_lock);
+			philo->eating = true;
+			pthread_mutex_unlock(philo->eat_lock);
+			pthread_mutex_lock(philo->time_lock);
 			philo->time_philo = get_time();
-			// unlock
+			pthread_mutex_unlock(philo->time_lock);
+			ft_sleep(input->tt_eat);
 			pthread_mutex_unlock(&input->forks[philo->fork_l]);
 			pthread_mutex_unlock(&input->forks[philo->fork_r]);
-			// start_time = get_time();
+			eat++;
+			pthread_mutex_lock(philo->eat_lock);
+			philo->eating = false;
+			pthread_mutex_unlock(philo->eat_lock);
 			// sleep
-			print_state(input, philo, is_sleeping, get_time());
+			print_state(input, philo, is_sleeping);
 			ft_sleep(input->tt_sleep);
-			print_state(input, philo, is_thinking, get_time());
+			// think
+			print_state(input, philo, is_thinking);
 		}
 		else
+		{
 			pthread_mutex_unlock(input->death_lock);
+			pthread_mutex_unlock(&input->forks[philo->fork_l]);
+			pthread_mutex_unlock(&input->forks[philo->fork_r]);
+			break ;
+		}
 	}
-	// printf("%d finished routine\n", philo->philo_n);
+	pthread_mutex_lock(input->running_lock);
 	philo->running = false;
+	pthread_mutex_unlock(input->running_lock);
 	return (NULL);
 }

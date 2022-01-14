@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:10:08 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/10 19:57:29 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/14 13:39:30 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,7 @@ int	main(int argc, char **argv)
 
 	input = NULL;
 	if (argc < 5 || argc > 6)
-	{
-		printf("Wrong input!\nplease use like './philo\
-		number_of_philosophers time_to_die time_to_eat time_to_sleep\
-		[number_of_times_each_philosoppher_must_eat]'\n");
-		return (EXIT_FAILURE);
-	}
+		return (print_error());
 	input = set_input(argv);
 	if (input == NULL)
 		return (EXIT_FAILURE);
@@ -39,5 +34,6 @@ int	main(int argc, char **argv)
 		if (thread_creation(input, philos) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	}
+	reaper();
 	return (EXIT_SUCCESS);
 }

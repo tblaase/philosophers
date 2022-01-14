@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:12:08 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/10 20:00:38 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/14 15:34:20 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ typedef struct s_input
 	bool			wait;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*print_lock;
+	pthread_mutex_t	*running_lock;
+	pthread_mutex_t	*time_lock;
+	pthread_mutex_t	*i_p_lock;
+	pthread_mutex_t	*wait_lock;
 	char			*state[7];
 }			t_input;
 
@@ -46,10 +50,13 @@ typedef struct s_philo
 {
 	int				philo_n;
 	bool			running;
+	bool			eating;
 	int				fork_r;
 	int				fork_l;
 	pthread_t		thread_id;
 	long			time_philo;
+	pthread_mutex_t	*time_lock;
+	pthread_mutex_t	*eat_lock;
 }			t_philo;
 
 // ENUM FOR PRINT STATEMENTS
@@ -66,16 +73,18 @@ typedef enum e_print_statement
 long long	ft_atol(char *str);
 void		*ft_calloc(size_t nelem, size_t elsize);
 long		get_time(void);
-void		print_state(t_input *input, t_philo *philo, int state, long time);
+void		print_state(t_input *input, t_philo *philo, int state);
 
 // UTILS_TWO
-int			ft_sleep(long long ms);
+void		ft_sleep(long long ms);
+int			print_error(void);
+bool		every_philo_finished(void);
 
 // EXIT
-int			destroy_forks(void);
+void		destroy_forks(void);
 void		free_philos(void);
-int			destroy_philo(t_philo *philo); // maybe not needed
-int			death_routine(t_philo *philo);
+void		death_routine(t_philo *philo);
+void		free_input(void);
 
 // INIT
 t_philo		**init_philos(bool init);

@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 16:02:48 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/05 22:31:20 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/14 15:19:04 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@ static int	init_forks(void)
 {
 	int				i;
 	int				check;
-	// pthread_mutex_t	fork;
 	t_philo			**philos;
 	t_input			*input;
 
 	input = get_input();
 	philos = get_philos();
-	input->forks = ft_calloc(input->n_philos, sizeof(*input->forks));
+	input->forks = ft_calloc(input->n_philos, sizeof(pthread_mutex_t));
 	i = 0;
 	while (philos[i] != NULL)
 	{
@@ -34,16 +33,10 @@ static int	init_forks(void)
 		}
 		philos[i]->fork_r = i;
 		i++;
-		// printf("initialised mutex on fork_r of philo %d\n", philos[i - 1]->philo_n);
-		// printf("locking fork_r of philo %d now\n", philos[i - 1]->philo_n);
-		// pthread_mutex_lock(&fork);
-		// printf("unlocking fork_r of philo %d again\n", philos[i - 1]->philo_n);
 	}
 	philos[0]->fork_l = philos[--i]->fork_r;
-	// printf("philo %d fork_l is now fork_r of philo %d\n", philos[0]->philo_n, philos[i]->philo_n);
 	while (i > 0)
 	{
-		// printf("philo %d fork_l is now fork_r of philo %d\n", philos[i]->philo_n, philos[i - 1]->philo_n);
 		philos[i]->fork_l = philos[i - 1]->fork_r;
 		i--;
 	}
@@ -59,14 +52,9 @@ t_philo	**init_philos(bool init)
 	if (init == false)
 		return (philos);
 	input = get_input();
-	// input->forks = ft_calloc(1, sizeof(pthread_mutex_t **));
-	// if (init_forks(input) == EXIT_FAILURE)
-	// 	return (NULL);
 	philos = ft_calloc(input->n_philos + 1, sizeof(t_philo *));
 	if (philos == NULL)
 		return (NULL);
-	// else
-	// {
 	i = 0;
 	while (i < input->n_philos)
 	{
@@ -76,20 +64,19 @@ t_philo	**init_philos(bool init)
 			free_philos();
 			return (NULL);
 		}
-		// philos[i]->fork_r = input->forks[i];
 		philos[i]->philo_n = i + 1;
-		// if (i == 0)
-		// 	philos[i]->fork_l = input->forks[input->n_philos - 1];
-		// else
-		// 	philos[i]->fork_l = input->forks[i - 1];
+		philos[i]->eating = false;
+		philos[i]->time_lock = ft_calloc(1, sizeof(pthread_mutex_t));
+		philos[i]->eat_lock = ft_calloc(1, sizeof(pthread_mutex_t));
+		pthread_mutex_init(philos[i]->time_lock, NULL);
+		pthread_mutex_init(philos[i]->eat_lock, NULL);
 		i++;
 	}
 	if (init_forks() == EXIT_FAILURE)
 	{
-		free_philos(); // change it to return NULL to save some lines
+		free_philos();
 		return (NULL);
 	}
-	// }
 	return (philos);
 }
 

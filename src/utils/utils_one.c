@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 13:58:34 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/14 16:22:42 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/17 20:08:56 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,15 @@ long long	ft_atol(char *str)
 	return (x * c);
 }
 
-void	*ft_memset(void *s, int c, size_t n)
+/**
+ * @brief  ft_memset of libft
+ * @note
+ * @param  *s: the pointer whose values to set
+ * @param  c: the ascii to set it to
+ * @param  n: the number of characters to set
+ * @retval None
+ */
+static void	*ft_memset(void *s, int c, size_t n)
 {
 	char	*buf;
 
@@ -107,10 +115,8 @@ void	print_state(t_input *input, t_philo *philo, int state)
 	{
 		pthread_mutex_unlock(input->death_lock);
 		pthread_mutex_lock(input->print_lock);
-		pthread_mutex_lock(input->time_lock);
 		printf("%ld	%d %s", get_time() - input->start_time,
 			philo->philo_n, input->state[state]);
-		pthread_mutex_unlock(input->time_lock);
 		pthread_mutex_unlock(input->print_lock);
 	}
 	else

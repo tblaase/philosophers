@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:12:08 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/14 15:34:20 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/17 20:33:06 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 // INFORMATION FROM INPUT
 typedef struct s_input
 {
-	int				i_p;
 	long long		n_philos;
+	pthread_mutex_t	*forks;
 	long long		tt_die;
 	long long		tt_eat;
 	long long		tt_sleep;
@@ -36,12 +36,8 @@ typedef struct s_input
 	bool			death;
 	pthread_mutex_t	*death_lock;
 	bool			wait;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	*print_lock;
-	pthread_mutex_t	*running_lock;
-	pthread_mutex_t	*time_lock;
-	pthread_mutex_t	*i_p_lock;
 	pthread_mutex_t	*wait_lock;
+	pthread_mutex_t	*print_lock;
 	char			*state[7];
 }			t_input;
 
@@ -50,13 +46,14 @@ typedef struct s_philo
 {
 	int				philo_n;
 	bool			running;
+	pthread_mutex_t	*running_lock;
 	bool			eating;
+	pthread_mutex_t	*eat_lock;
 	int				fork_r;
 	int				fork_l;
 	pthread_t		thread_id;
 	long			time_philo;
 	pthread_mutex_t	*time_lock;
-	pthread_mutex_t	*eat_lock;
 }			t_philo;
 
 // ENUM FOR PRINT STATEMENTS
@@ -79,12 +76,14 @@ void		print_state(t_input *input, t_philo *philo, int state);
 void		ft_sleep(long long ms);
 int			print_error(void);
 bool		every_philo_finished(void);
+int			ft_isdigit(int c);
+int			input_help(void);
 
 // EXIT
+void		free_input(void);
 void		destroy_forks(void);
 void		free_philos(void);
 void		death_routine(t_philo *philo);
-void		free_input(void);
 
 // INIT
 t_philo		**init_philos(bool init);
@@ -101,7 +100,7 @@ void		reaper(void);
 void		*routine(void *arg);
 
 // THREADS
+void		thread_join(void);
 int			thread_creation(t_input *input, t_philo **philos);
-int			thread_join(void);
 
 #endif

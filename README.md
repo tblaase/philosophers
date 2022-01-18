@@ -7,9 +7,10 @@ This is part of common core.<br>
 
 ## Introduction
 <p float="left">
-<img src="readme_additions/introduction.png" height="250"/>
-<img src="readme_additions/philosophers_example.png" height="250"/>
+<img src="readme_additions/introduction.png" height="300"/>
+<img src="readme_additions/philosophers_example.png" height="300"/>
 <p>
+
 This is taken from the [subject.pdf](https://github.com/tblaase/philosophers/blob/master/readme_additions/en.subject.pdf).<br>
 To run the simulation a few variables are needed:
 
@@ -27,7 +28,8 @@ A philosopher can:
 - sleep
 - think
 - die
-<img src="readme_additions/example_out.png" width="300"><br>
+
+<img src="readme_additions/example_out.png" width="300"/><br>
 
 ## Usage
 To compile the programm run `make all` in the root of the project.<br>
@@ -35,6 +37,8 @@ Then run `./philo` with the parameters you want to test explained in [Introducti
 i.e.: `./philo 4 410 200 200 4`<br>
 Now the simulation will start and run until each philosopher has eaten 4 times or dies.<br>
 This `./philo 4 410 200 200` should theoretically run infinite.
+If you want to see the usage while using you can do `./philo` and it will show you the correct usage.<br>
+<img src ="readme_additions/unsage.png" width="300"/>
 
 ## Errors
 If you find any undefined behaviour with this code, please notify me about it.<br>

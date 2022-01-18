@@ -1,12 +1,12 @@
-# Philosophers (January 2022)
+# Philosophers (January 2022, Version 9, 100/100)
 I’ve never thought philosophy would be so deadly.<br>
 This is my solution for the philosophers project of 42 school.<br>
 This is part of common core.<br>
-<img src="readme_additions/philosophers_example.png" width="200"/><br>
-<!-- <img src="readme_additions/result.png" width="200"/><br> -->
+<img src="readme_additions/result.png"/><br>
 
-##Introduction
-<img src="readme_additions/introduction.png"><br>
+## Introduction
+<img src="readme_additions/philosophers_example.png" height="300"/>
+<img src="readme_additions/introduction.png" height="300"/><br>
 This is taken from the [subject.pdf](readme_additions/en.subject.pdf).<br>
 To run the simulation a few variables are needed:<br>
 1. number_of_philosophers: is the number of philosophers and also the number of forks.<br>
@@ -14,3 +14,23 @@ To run the simulation a few variables are needed:<br>
 3. time_to_eat: is in milliseconds and is the time it takes for a philosopher to eat. During that time they will need to keep the two forks.<br>
 4. time_to_sleep: is in milliseconds and is the time the philosopher will spend sleeping.<br>
 5. number_of_times_each_philosopher_must_eat: argument is optional, if all philosophers eat at least ’number_of_times_each_philosopher_must_eat’ the simulation will stop. If not specified, the simulation will stop only at the death of a philosopher.<br>
+<br>
+Each action of a philosopher will result in his state beeing printed in the correct order and with a timestamp and his number.<br>
+A philosopher can:<br>
+- grab a fork
+- eat
+- sleep
+- think
+- die
+<img src="redame_additions/example_out.png" width="300"><br>
+
+## Usage
+To compile the programm run `make all` in the root of the project.<br>
+Then run `./philo` with the parameters you want to test explained in [Introduction](https://github.com/tblaase/philosophers#Introduction) as 1. 2. 3. 4. and 5.<br>
+i.e.: `./philo 4 410 200 200 4`<br>
+Now the simulation will start and run until each philosopher has eaten 4 times or dies.<br>
+This `./philo 4 410 200 200` should theoretically run infinite.
+
+## Errors
+If you find any undefined behaviour with this code, please notify me about it.<br>
+Contact information can be found on my [profile](https://github.com/tblaase).

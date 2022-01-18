@@ -2,13 +2,16 @@
 I’ve never thought philosophy would be so deadly.<br>
 This is my solution for the philosophers project of 42 school.<br>
 This is part of common core.<br>
+<br>
 <img src="readme_additions/result.png"/><br>
 
 ## Introduction
-<img src="readme_additions/philosophers_example.png" height="300"/>
-<img src="readme_additions/introduction.png" height="300"/><br>
-This is taken from the [subject.pdf](readme_additions/en.subject.pdf).<br>
-To run the simulation a few variables are needed:<br>
+<!-- <p float="left"> -->
+<img src="readme_additions/philosophers_example.png" height="300"/><img src="readme_additions/introduction.png" height="300"/>
+<!-- <p> -->
+This is taken from the [subject.pdf](https://github.com/tblaase/philosophers/blob/master/readme_additions/en.subject.pdf).<br>
+To run the simulation a few variables are needed:
+
 1. number_of_philosophers: is the number of philosophers and also the number of forks.<br>
 2. time_to_die: is in milliseconds, if a philosopher doesn’t start eating ’time_to_die’milliseconds after starting their last meal or the beginning of the simulation,it dies.<br>
 3. time_to_eat: is in milliseconds and is the time it takes for a philosopher to eat. During that time they will need to keep the two forks.<br>
@@ -16,13 +19,14 @@ To run the simulation a few variables are needed:<br>
 5. number_of_times_each_philosopher_must_eat: argument is optional, if all philosophers eat at least ’number_of_times_each_philosopher_must_eat’ the simulation will stop. If not specified, the simulation will stop only at the death of a philosopher.<br>
 <br>
 Each action of a philosopher will result in his state beeing printed in the correct order and with a timestamp and his number.<br>
-A philosopher can:<br>
+A philosopher can:
+
 - grab a fork
 - eat
 - sleep
 - think
 - die
-<img src="redame_additions/example_out.png" width="300"><br>
+<img src="readme_additions/example_out.png" width="300"><br>
 
 ## Usage
 To compile the programm run `make all` in the root of the project.<br>

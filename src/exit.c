@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 16:05:06 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/17 20:33:47 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/18 11:11:43 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	death_routine(t_philo *philo)
 	pthread_mutex_lock(input->death_lock);
 	input->death = true;
 	pthread_mutex_unlock(input->death_lock);
-	usleep(1000);
+	ft_sleep(2);
 	death_time = get_time();
 	if (philo != NULL)
 		printf("%ld	%d %s", death_time - input->start_time,

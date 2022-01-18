@@ -6,7 +6,7 @@
 #    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/21 11:22:27 by tblaase           #+#    #+#              #
-#    Updated: 2022/01/17 19:23:29 by tblaase          ###   ########.fr        #
+#    Updated: 2022/01/18 10:37:49 by tblaase          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,11 +52,7 @@ $(OBJ_PATH)%.o :$(SRC_PATH)%.c
 	@echo $(Y)Compiling [$@]...$(X)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c -o $@ $<
-#	@printf $(UP)$(CUT)
 	@echo $(G)Finished [$@]$(X)
-#	@echo $(UP)$(CUT)
-#	@echo $(Y)Compiling [$(SRC)]...$(X)
-#	@echo $(G)Finished [$(SRC)]$(X)
 
 $(NAME): $(OBJ)
 	@echo $(Y)Compiling [$(SRC)]
@@ -67,18 +63,15 @@ $(NAME): $(OBJ)
 clean:
 	@if [ -d "$(OBJ_PATH)" ]; then \
 			rm -f -r $(OBJ_PATH); \
-			echo $(R)Cleaning" "[$(OBJ)]...$(X); else \
-			echo "No objects(.o-files) to remove."; \
+			echo $(R)Cleaning" "[$(OBJ) $(OBJ_PATH)]...$(X); else \
+			echo "No objects to remove."; \
 	fi;
-# is needed because the above if statement doesn't work
-#	@rm -f $(OBJ)
-#	@echo $(R)Cleaning" "[$(OBJ)]...$(X);
 
 fclean: clean
 	@if [ -f "$(NAME)" ]; then \
 			rm -f $(NAME); \
 			echo $(R)Cleaning" "[$(NAME)]...$(X);else \
-			echo "No executable(./philo) to remove."; \
+			echo "No executable to remove."; \
 	fi;
 
 re: fclean all

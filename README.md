@@ -6,12 +6,13 @@ This is part of common core.<br>
 <img src="readme_additions/result.png"/><br>
 
 ## Introduction
+
+This is taken from the [subject.pdf](https://github.com/tblaase/philosophers/blob/master/readme_additions/en.subject.pdf).<br>
 <p float="left">
 <img src="readme_additions/introduction.png" height="300"/>
 <img src="readme_additions/philosophers_example.png" height="300"/>
 <p>
-
-This is taken from the [subject.pdf](https://github.com/tblaase/philosophers/blob/master/readme_additions/en.subject.pdf).<br>
+  
 To run the simulation a few variables are needed:
 
 1. number_of_philosophers: is the number of philosophers and also the number of forks.
@@ -33,12 +34,12 @@ A philosopher can:
 
 ## Usage
 To compile the programm run `make all` in the root of the project.<br>
-Then run `./philo` with the parameters you want to test explained in [Introduction](https://github.com/tblaase/philosophers#Introduction) as 1. 2. 3. 4. and 5.<br>
+Then run `./philo` with the parameters you want to test explained in [Introduction](https://github.com/tblaase/philosophers#Introduction) as 1. 2. 3. 4. and 5.<br><br>
 i.e.: `./philo 4 410 200 200 4`<br>
-Now the simulation will start and run until each philosopher has eaten 4 times or dies.<br>
-This `./philo 4 410 200 200` should theoretically run infinite.
+Now the simulation will start and run until each philosopher has eaten 4 times or dies.<br><br>
+This `./philo 4 410 200 200` should theoretically run infinite.<br>
 If you want to see the usage while using you can do `./philo` and it will show you the correct usage.<br>
-<img src ="readme_additions/unsage.png" width="300"/>
+<img src ="readme_additions/usage.png" width="300"/>
 
 ## Errors
 If you find any undefined behaviour with this code, please notify me about it.<br>

@@ -7,12 +7,12 @@ This is part of common core.<br>
 
 ## Introduction
 
-This is taken from the [subject.pdf](https://github.com/tblaase/philosophers/blob/master/readme_additions/en.subject.pdf).<br>
+This is taken from the subject.pdf.<br>
 <p float="left">
 <img src="readme_additions/introduction.png" height="300"/>
 <img src="readme_additions/philosophers_example.png" height="300"/>
 <p>
-  
+
 To run the simulation a few variables are needed:
 
 1. number_of_philosophers: is the number of philosophers and also the number of forks.
